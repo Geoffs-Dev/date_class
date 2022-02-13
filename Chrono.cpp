@@ -1,3 +1,7 @@
+/*Bjarne Stroustrop: Programming Principles and Practice Using C++
+* the Date Class Chapter 9
+*/
+
 /*
 * std_lib_facilities.h  include files are:
 * 
@@ -17,11 +21,11 @@
 * #include <regex>
 * #include<random>
 * #include<stdexcept>
-* 
 */
 #include "std_lib_facilities.h"
 
 #include "Chrono.h"
+using namespace Chrono;
 
 namespace Chrono {
 	//member function definitions:
@@ -101,6 +105,7 @@ namespace Chrono {
 	{
 		// See exercise 10 (CRAP!)
 		// Actually this should be quite easy - laughs very out loud
+		return 0;
 	}
 
 	// operator overloads
@@ -116,10 +121,15 @@ namespace Chrono {
 		return !(a == b);
 	}
 
-	//Errors "no operator "<<" matches these operands
+	/*Errors "no operator " << " matches these operands:
+	* And another error stateing that cannot convert type Chrono::Month 
+	* FIX
+	* CHANGED: return os << '(' << d.year() <<  ',' << d.month() << ',' << d.day() << ')';
+	*TO: return os << '(' << d.year() <<  ',' << static_cast<int>(d.month()) << ',' << d.day() << ')';
+	*/
 	ostream& operator<<(ostream& os, const Date& d)
 	{
-		return os << '(' << d.year() <<  ',' << d.month() << ',' << d.day() << ')';
+		return os << '(' << d.year() <<  ',' << static_cast<int>(d.month()) << ',' << d.day() << ')';
 	}
 
 	istream& operator>>(istream& is, Date& dd)
@@ -147,25 +157,40 @@ namespace Chrono {
 		sunday, monday, tuesday, wednesday, thursday, friday, saturday
 	};
 
+	//Functions below commented out for later work.
+	/*
 	Day day_of_week(const Date& d)
 	{
 		//...
+		return;
 	}
 
 	Date next_Sunday(const Date& d)
 	{
 		//...
+		return;
 	}
 
 	Date next_weekday(const Date& d)
 	{
 		//...
+		return;
 	}
-
+	*/
 }	// Chrono
 
 int main()
 {
+	Date default_year;
+	cout << "Default set year is: " << default_year.year() << '\n';
+
+	Date today(2022, Month::feb, 13); //No need to type_cast Month here??
+
+	cout << "Today is: " << today << "\n\n";
+
+	cout << "I can also display: day: " << today.day() << '\n';
+	cout << "I can also display: month: " << static_cast<int>(today.month()) << '\n'; //enum class Month must be type_cast.
+	cout << "I can also display: year: " << today.year() << "\n\n";
 
 	return 0;
 }

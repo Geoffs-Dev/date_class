@@ -1,7 +1,10 @@
 #pragma once
 
-// File Chrono.h
+/*Bjarne Stroustrop: Programming Principles and Practice Using C++
+* the Date Class Chapter 9
+*/
 
+// File Chrono.h
 namespace Chrono {
 
 	//enum class Month increments automatically - "normally starts at zero", so we set jan to 1.
